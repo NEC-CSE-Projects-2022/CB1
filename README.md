@@ -3,16 +3,16 @@
 
 ## Team Info
 - 22471A05I4 — **VEERA DHANUSH KUMAR PEKALA** ( [LinkedIn](www.linkedin.com/in/dhanush-pekala-a531b52b1) )
-_Work Done: xxxxxxxxxx_
+_Work Done: Research and finding resources, train the model_
 
 - 22471A05I6 — **SRINIVAS SEGGEM** ( [LinkedIn](https://www.linkedin.com/in/srinivas-seggem-78aa44362 ) )
-_Work Done: xxxxxxxxxx_
+_Work Done: preprocessing of dataset, labelling_
 
 - 22471A05J1 — **SAIDA VALI MYNAMPATI SK** ( [LinkedIn](https://www.linkedin.com/in/m-saidavali-shaik-6b5b912ab) )
-_Work Done: xxxxxxxxxx_
+_Work Done: optimization of results_
 
 - 22471A05K2 — **VENKATA SIVA THANNARU** ( [LinkedIn](https://www.linkedin.com/in/shiva2213) )
-_Work Done: xxxxxxxxxx_
+_Work Done: evaluation of results and verification_
 
 ---
 
@@ -24,7 +24,7 @@ Most of the current Intrusion Detection Systems (IDS) fail to be accurate under 
 ## Paper Reference (Inspiration)
 👉 **[Paper Title "Streamlined Network Intrusion Detection: Feature Selection
 Optimization for Higher Accuracy and Efficiency"
-  – Author Names Kunda Suresh Babu, Vallepu Srinivas, Yamani Chandana, G Satish, R Dhandu Naik and
+  – Author Names --- Kunda Suresh Babu, Vallepu Srinivas, Yamani Chandana, G Satish, R Dhandu Naik and
 Dodda Venkata Reddy
  ](https://www.taylorfrancis.com/chapters/edit/10.1201/9781003515470-16/streamlined-network-intrusion-detection-feature-selection-optimization-higher-accuracy-efficiency-kunda-suresh-babu-vallepu-srinivas-yamani-chandana-satish-dhandu-naik-dodda-venkata-reddy)**
 Original conference/IEEE paper used as inspiration for the model.
@@ -411,10 +411,10 @@ system for a dynamic network security space.
 ---
 
 ## Deployment Info
-REST API (Flask)
-Load all models into memory
-Receive JSON with flow features
-Return predicted class + confidence
+REST API (Flask): 
+Load all models into memory, 
+Receive JSON with flow features, 
+Return predicted class + confidence.
 
 
 ---
