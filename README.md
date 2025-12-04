@@ -2,16 +2,16 @@
 # Team Number – Project Title
 
 ## Team Info
-- 22471A05I4 — **VEERA DHANUSH KUMAR PEKALA** ( [LinkedIn]() )
+- 22471A05I4 — **VEERA DHANUSH KUMAR PEKALA** ( [LinkedIn](www.linkedin.com/in/dhanush-pekala-a531b52b1) )
 _Work Done: xxxxxxxxxx_
 
-- 22471A05I6 — **SRINIVAS SEGGEM** ( [LinkedIn](https://linkedin.com/in/xxxxxxxxxx) )
+- 22471A05I6 — **SRINIVAS SEGGEM** ( [LinkedIn](https://www.linkedin.com/in/srinivas-seggem-78aa44362 ) )
 _Work Done: xxxxxxxxxx_
 
-- 22471A05J1 — **SAIDA VALI MYNAMPATI SK** ( [LinkedIn](https://linkedin.com/in/xxxxxxxxxx) )
+- 22471A05J1 — **SAIDA VALI MYNAMPATI SK** ( [LinkedIn](https://www.linkedin.com/in/m-saidavali-shaik-6b5b912ab) )
 _Work Done: xxxxxxxxxx_
 
-- 22471A05K2 — **VENKATA SIVA THANNARU** ( [LinkedIn](https://linkedin.com/in/xxxxxxxxxx) )
+- 22471A05K2 — **VENKATA SIVA THANNARU** ( [LinkedIn](https://www.linkedin.com/in/shiva2213) )
 _Work Done: xxxxxxxxxx_
 
 ---
@@ -318,6 +318,8 @@ Improve recall on rare classes
 Clean up final errors before output
 
 This is the step that pushes accuracy and F1 very close to 99.99% across tasks 
+
+
 ---
 
 ## Model Testing / Evaluation
