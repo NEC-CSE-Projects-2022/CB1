@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metrics - Flask Project</title>
+    <style>
+        :root {
+            --primary: #4a6cf7;
+            --primary-light: #6a88f9;
+            --primary-dark: #3a56c7;
+            --secondary: #6c757d;
+            --accent: #0d6efd;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #198754;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        /* Header styling */
+        header {
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin: 2rem auto;
+            width: 95%;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+        }
+
+        .logo {
+            height: 90px;
+            width: 90px;
+            object-fit: contain;
+            border-radius: 18px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-right: 20px;
+            background: white;
+            padding: 5px;
+        }
+
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex-grow: 1;
+            text-align: center;
+            width: 100%;
+        }
+
+        .project-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            font-family: 'Poppins', Arial, sans-serif;
+            color: var(--primary-dark);
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .team-info {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-top: 12px;
+            color: var(--secondary);
+            white-space: nowrap;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .team-info span {
+            margin-right: 20px;
+        }
+
+        .team-info span i {
+            color: var(--primary);
+            margin-right: 5px;
+        }
+
+        nav {
+            margin-top: 15px;
+        }
+
+        .navbar {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            margin: 0;
+            padding: 0;
+            justify-content: center;
+        }
+
+        .navbar li {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar li a {
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--dark);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 50px;
+            background: transparent;
+        }
+
+        .navbar li a:hover {
+            background: rgba(74, 108, 247, 0.1);
+            color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .navbar li a.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 5px 15px rgba(74, 108, 247, 0.3);
+        }
+
+        /* Styling for the separator */
+        hr {
+            border: 0;
+            border-top: 2px solid var(--primary);
+            width: 80%;
+            margin: 20px auto;
+            border-radius: 2px;
+            opacity: 0.3;
+        }
+
+        main {
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            margin: 2rem auto;
+            padding: 2.5rem;
+            width: 95%;
+            min-height: 60vh;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        /* Metrics page specific styles */
+        .metrics-container {
+            padding: 20px;
+            color: #333;
+            width: 100%;
+            box-sizing: border-box;
+            font-family: 'Open Sans', sans-serif;
+        }
+
+        h2, h3 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--primary-dark);
+            margin: 30px 0 20px 0;
+            font-weight: 600;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 10px;
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: var(--primary);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+            font-size: 1rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        table th, table td {
+            padding: 15px;
+            border: 1px solid #e0e0e0;
+        }
+
+        table th {
+            background-color: var(--primary);
+            color: white;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        table tr:nth-child(even) {
+            background-color: rgba(74, 108, 247, 0.05);
+        }
+
+        table tr:hover {
+            background-color: rgba(74, 108, 247, 0.1);
+            transition: var(--transition);
+        }
+
+        /* Animation for interactive elements */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        header, main {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .navbar li a {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        table {
+            animation: fadeIn 0.8s ease-out;
+        }
+
+        /* Responsive design */
+        @media (max-width: 992px) {
+            .project-title {
+                font-size: 1.5rem;
+            }
+            
+            .navbar {
+                gap: 15px;
+            }
+            
+            .navbar li a {
+                padding: 10px 15px;
+                font-size: 0.95rem;
+            }
+            
+            .team-info {
+                font-size: 1rem;
+            }
+            
+            .team-info span {
+                margin-right: 15px;
+            }
+            
+            table {
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .project-title {
+                font-size: 1.4rem;
+            }
+            
+            .navbar {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .team-info {
+                white-space: normal;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .team-info span {
+                margin-right: 0;
+            }
+            
+            table {
+                display: block;
+                overflow-x: auto;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            h3 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <img src="/static/images/logo.jpg" alt="Logo" class="logo">
+        <div class="header-content">
+            <div class="project-title">Neuro-Fuzzy IDS with MRMR Feature Selection and Adaptive Ensemble Correction</div>
+            <!-- Team info section added in a single line -->
+            <div class="team-info">
+                <span><i class="fas fa-users"></i> Team Members: P.V.Dhanush Kumar, V.Srinivas, Sk.M.Saida Vali, T.venkata Siva</span>
+                <span><i class="fas fa-user-graduate"></i> Guide: Dr. K.Suresh Babu</span>
+                <span><i class="fas fa-user-tie"></i> Mentor: D.Venkata Reddy</span>
+            </div>
+            <!-- Separator added here -->
+            <hr>
+            <nav>
+                <ul class="navbar">
+                    <li><a href="/" class=""><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="/about" class=""><i class="fas fa-info-circle"></i> About Project</a></li>
+                    <li><a href="/predict" class=""><i class="fas fa-calculator"></i> Prediction</a></li>
+                    <li><a href="/metrics" class="active"><i class="fas fa-chart-line"></i> Metrics</a></li>
+                    <li><a href="/flowchart" class=""><i class="fas fa-sitemap"></i> Flowchart</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        <div class="metrics-container">
+    <h2 style="text-align: center;">Evaluation metrics</h2>
+
+    <h2>Binary Classification</h2>
+    <table>
+        <tr>
+            <th>Configuration</th>
+            <th>Accuracy</th>
+            <th>Precision</th>
+            <th>Recall</th>
+            <th>F1-score</th>
+        </tr>
+        <tr><td>TabNet</td><td>93.00%</td><td>0.92</td><td>0.85</td><td>0.80</td></tr>
+        <tr><td>Fuzzy Logic</td><td>94.88%</td><td>0.99</td><td>0.74</td><td>0.85</td></tr>
+        <tr><td>DT Corrector</td><td>90.90%</td><td>0.95</td><td>0.77</td><td>0.82</td></tr>
+        <tr><td>RF Booster</td><td>95.00%</td><td>0.97</td><td>0.87</td><td>0.91</td></tr>
+        <tr><td>Ensemble</td><td>99.64%</td><td>1.00</td><td>0.99</td><td>0.99</td></tr>
+        <tr><td>XGBoost Final</td><td>99.99%</td><td>1.00</td><td>1.00</td><td>1.00</td></tr>
+    </table>
+
+    <h2>7-Class Classification</h2>
+    <table>
+        <tr>
+            <th>Configuration</th>
+            <th>Accuracy</th>
+            <th>Precision</th>
+            <th>Recall</th>
+            <th>F1-score</th>
+        </tr>
+        <tr><td>TabNet</td><td>95.71%</td><td>0.68</td><td>0.57</td><td>0.94</td></tr>
+        <tr><td>Fuzzy Logic</td><td>95.65%</td><td>0.9563</td><td>0.9565</td><td>0.9533</td></tr>
+        <tr><td>DT Corrector</td><td>95.79%</td><td>0.83</td><td>0.58</td><td>0.62</td></tr>
+        <tr><td>RF Booster</td><td>95.84%</td><td>0.83</td><td>0.59</td><td>0.62</td></tr>
+        <tr><td>Ensemble</td><td>99.43%</td><td>0.96</td><td>0.77</td><td>0.80</td></tr>
+        <tr><td>XGBoost Final</td><td>99.99%</td><td>1.00</td><td>1.00</td><td>1.00</td></tr>
+    </table>
+
+    <h2>All-Class (15-Class) Classification</h2>
+    <table>
+        <tr>
+            <th>Configuration</th>
+            <th>Accuracy</th>
+            <th>Precision</th>
+            <th>Recall</th>
+            <th>F1-score</th>
+        </tr>
+        <tr><td>TabNet</td><td>92.63%</td><td>0.53</td><td>0.46</td><td>0.48</td></tr>
+        <tr><td>Fuzzy Logic</td><td>93.02%</td><td>0.9309</td><td>0.9302</td><td>0.9228</td></tr>
+        <tr><td>DT Corrector</td><td>93.75%</td><td>0.60</td><td>0.51</td><td>0.53</td></tr>
+        <tr><td>RF Booster</td><td>93.34%</td><td>0.54</td><td>0.46</td><td>0.48</td></tr>
+        <tr><td>Ensemble</td><td>95.51%</td><td>0.59</td><td>0.51</td><td>0.53</td></tr>
+        <tr><td>XGBoost Final</td><td>99.99%</td><td>0.99</td><td>0.99</td><td>0.99</td></tr>
+    </table>
+</div>
+
+    </main>
+</body>
+</html>

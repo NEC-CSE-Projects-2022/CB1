@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="project-container">
+    <h1 class="animated-title">Proposed System</h1>
+    <div class="image-container">
+        <img src="{{ url_for('static', filename='images/myprojectflowchart.drawio.png') }}" alt="Project Flowchart">
+    </div>
+</div>
+
+<style>
+  /* Background with Image and Opacity */
+  .project-container {
+    background: white;
+    padding: 20px;
+    color: #000;
+    width: 100%;
+    min-height: 100vh; /* Ensure full viewport height */
+    box-sizing: border-box;
+    font-family: 'Century', serif;
+  }
+
+  /* Typography for Titles */
+  .animated-title {
+    font-family: 'Century', serif;
+    font-size: 2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 20px; /* Space between heading and image */
+    color: #000;
+    text-align: center;
+    animation: slideInFade 3s ease-out forwards;
+    opacity: 1;
+  }
+
+  /* Image Styling */
+  .image-container {
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Center the image */
+    height: calc(100vh - 60px); /* Adjust height to fit within viewport */
+  }
+
+  .image-container img {
+    max-width: 90%;
+    max-height: 80vh; /* Limit the height of the image */
+    height: auto;
+    /* border: 2px solid #fff; */
+    animation: scaleUpRotate 3s ease-out forwards 1s;
+    opacity: 1;
+  }
+
+  /* New Animation for the Title */
+  /* @keyframes slideInFade {
+    0% {
+      opacity: 0;
+      transform: translateY(-30px);
+    }
+    50% {
+      opacity: 0.7;
+      transform: translateY(10px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  } */
+
+  /* New Animation for the Image */
+  /* @keyframes scaleUpRotate {
+    0% {
+      opacity: 0;
+      transform: scale(0.8) rotate(10deg);
+    }
+    50% {
+      opacity: 0.7;
+      transform: scale(1.1) rotate(-5deg);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1) rotate(0deg);
+    }
+  } */
+
+  /* Prevent body overflow */
+  body {
+    margin: 0;
+    height: 100%;
+  }
+</style>
+{% endblock %}

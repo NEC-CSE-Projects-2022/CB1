@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Model Results</title>
+    <style>
+        /* CSS Variables for consistent theming */
+        :root {
+            --primary: #3498db;
+            --primary-dark: #2980b9;
+            --primary-light: #85c1e9;
+            --success: #27ae60;
+            --danger: #e74c3c;
+            --warning: #f39c12;
+            --dark: #2c3e50;
+            --light: #ecf0f1;
+            --card-bg: #ffffff;
+            --transition: all 0.3s ease;
+        }
+
+        /* Base Styling */
+        body {
+            font-family: 'Open Sans', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--dark);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Results Container */
+        .results-container {
+            max-width: 900px;
+            margin: 20px;
+            padding: 2.5rem;
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            position: relative;
+        }
+
+        /* Title Styling */
+        h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            text-align: center;
+            margin: 1rem 0 2rem 0;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--primary);
+            position: relative;
+        }
+
+        h1:after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        /* Accuracy Styling */
+        .accuracy-card {
+            background: linear-gradient(135deg, rgba(39, 174, 96, 0.1) 0%, rgba(39, 174, 96, 0.05) 100%);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 4px solid var(--success);
+        }
+
+        h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.8rem;
+            color: var(--success);
+            margin: 0;
+        }
+
+        /* Subheading Styling */
+        h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.3rem;
+            color: var(--primary-dark);
+            margin: 2rem 0 1rem 0;
+            text-align: left;
+            padding-left: 0.5rem;
+            border-left: 3px solid var(--primary);
+        }
+
+        /* Prediction Results */
+        .prediction-results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .prediction-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+            border-top: 4px solid var(--primary);
+            text-align: left;
+        }
+
+        .prediction-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12);
+        }
+
+        .prediction-card p {
+            margin: 0.8rem 0;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .prediction-card .normal {
+            color: var(--success);
+        }
+
+        .prediction-card .malicious {
+            color: var(--danger);
+        }
+
+        /* Classification Report */
+        .classification-report {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            overflow-x: auto;
+            font-size: 0.9rem;
+            font-family: "Courier New", Courier, monospace;
+            color: var(--dark);
+            white-space: pre-wrap;
+            margin-top: 1rem;
+            text-align: left;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        /* Confusion Matrix */
+        .confusion-matrix-container {
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .confusion-matrix-container h3 {
+            text-align: center;
+            border-left: none;
+            padding-left: 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        table th {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            padding: 1rem;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+
+        table td {
+            text-align: center;
+            padding: 1rem;
+            border: 1px solid #e0e0e0;
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        table tr:nth-child(even) {
+            background-color: rgba(52, 152, 219, 0.05);
+        }
+
+        table tr:hover {
+            background-color: rgba(52, 152, 219, 0.1);
+        }
+
+        /* No Results */
+        .no-results {
+            color: var(--danger);
+            text-align: center;
+            font-weight: 600;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(231, 76, 60, 0.1);
+            border-radius: 12px;
+            border-left: 4px solid var(--danger);
+        }
+
+        /* Buttons */
+        .button-container {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            min-width: 160px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .try-again {
+            background: linear-gradient(135deg, var(--success) 0%, #2ecc71 100%);
+            color: white;
+        }
+
+        .try-again:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(39, 174, 96, 0.3);
+        }
+
+        .back-button {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+        }
+
+        .back-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(52, 152, 219, 0.3);
+        }
+
+        /* Flash Messages - FIXED STYLING */
+        .flash-messages {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 600px;
+            z-index: 1000;
+        }
+
+        .flash-message {
+            padding: 1rem 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            border: 2px solid transparent;
+            background: var(--card-bg);
+            color: var(--dark);
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        .flash-message.success {
+            background: linear-gradient(135deg, var(--success) 0%, #2ecc71 100%);
+            color: white;
+            border-color: var(--success);
+        }
+
+        .flash-message.error {
+            background: linear-gradient(135deg, var(--danger) 0%, #c0392b 100%);
+            color: white;
+            border-color: var(--danger);
+        }
+
+        .flash-message.info {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        /* Upload Success Message */
+        .upload-success {
+            background: linear-gradient(135deg, var(--success) 0%, #2ecc71 100%);
+            color: white;
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            border-radius: 12px;
+            font-weight: 600;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.3);
+            border-left: 4px solid white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .results-container {
+                padding: 1.5rem;
+                margin: 15px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            h2 {
+                font-size: 1.5rem;
+            }
+            
+            h3 {
+                font-size: 1.2rem;
+                text-align: center;
+                border-left: none;
+                padding-left: 0;
+            }
+            
+            .prediction-results {
+                grid-template-columns: 1fr;
+            }
+            
+            .button-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 250px;
+            }
+
+            .classification-report {
+                font-size: 0.8rem;
+                padding: 1rem;
+            }
+
+            table th, table td {
+                padding: 0.75rem 0.5rem;
+                font-size: 0.9rem;
+            }
+
+            .flash-messages {
+                width: 95%;
+                max-width: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.8rem;
+            }
+            
+            .results-container {
+                padding: 1rem;
+                margin: 10px;
+            }
+            
+            table {
+                font-size: 0.8rem;
+            }
+            
+            .prediction-card {
+                padding: 1rem;
+            }
+
+            .flash-message {
+                padding: 0.8rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Flash Messages at the Top - FIXED -->
+    <div class="flash-messages">
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="flash-message {{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <div class="results-container">
+        <!-- Upload Success Message Inside Container -->
+        {% if upload_success %}
+        <div class="upload-success">
+            <i class="fas fa-check-circle"></i> File uploaded successfully!
+        </div>
+        {% endif %}
+
+        <h1>Model Results</h1>
+
+        {% if results %}
+            <div class="accuracy-card">
+                <h2>Accuracy: <strong>{{ results.accuracy }}%</strong></h2>
+            </div>
+
+            <h3>Prediction Results</h3>
+            <div class="prediction-results">
+                <div class="prediction-card">
+                    <p class="normal"><strong>Normal (BENIGN):</strong> {{ results.correctly_predicted_normal }}</p>
+                    <p class="malicious"><strong>Malicious:</strong> {{ results.correctly_predicted_malicious }}</p>
+                </div>
+            </div>
+
+            <h3>Classification Report</h3>
+            <div class="classification-report">{{ results.classification_report }}</div>
+
+            <div class="confusion-matrix-container">
+                <h3>Confusion Matrix</h3>
+                <table>
+                    {% for row in results.confusion_matrix %}
+                        <tr>
+                            {% for value in row %}
+                                <td>{{ value }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        {% else %}
+            <p class="no-results">No results to display. Please check the dataset or model training process.</p>
+        {% endif %}
+
+        <!-- Buttons -->
+        <div class="button-container">
+            <button class="btn try-again" onclick="window.location.href='{{ url_for('predict') }}';">Try Again</button>
+            <button class="btn back-button" onclick="window.location.href='/'">Back to Home</button>
+        </div>
+    </div>
+
+    <script>
+        // Auto-hide flash messages after 5 seconds
+        document.addEventListener('DOMContentLoaded', function() {
+            const flashMessages = document.querySelectorAll('.flash-message');
+            flashMessages.forEach(function(message) {
+                setTimeout(function() {
+                    message.style.opacity = '0';
+                    message.style.transition = 'opacity 0.5s ease';
+                    setTimeout(function() {
+                        message.remove();
+                    }, 500);
+                }, 5000);
+            });
+        });
+    </script>
+</body>
+</html>

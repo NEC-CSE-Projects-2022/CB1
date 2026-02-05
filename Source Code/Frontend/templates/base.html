@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ title | default("Flask Project") }}</title>
+    <style>
+        :root {
+            --primary: #4a6cf7;
+            --primary-light: #6a88f9;
+            --primary-dark: #3a56c7;
+            --secondary: #6c757d;
+            --accent: #0d6efd;
+            --light: #f8f9fa;
+            --dark: #212529;
+            --success: #198754;
+            --card-bg: rgba(255, 255, 255, 0.95);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Open Sans', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            /* background-attachment: fixed; */
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 0;
+        }
+
+        /* Header styling */
+        header {
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin: 2rem auto;
+            width: 95%;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+        }
+
+        .logo {
+            height: 90px;
+            width: 90px;
+            object-fit: contain;
+            border-radius: 18px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            margin-right: 20px;
+            background: white;
+            padding: 5px;
+        }
+
+        .header-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex-grow: 1;
+            text-align: center;
+            width: 100%;
+        }
+
+        .project-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            font-family: 'Poppins', Arial, sans-serif;
+            color: var(--primary-dark);
+            margin: 0;
+            line-height: 1.3;
+        }
+
+        .team-info {
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-top: 12px;
+            color: var(--secondary);
+            white-space: nowrap;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .team-info span {
+            margin-right: 20px;
+        }
+
+        .team-info span i {
+            color: var(--primary);
+            margin-right: 5px;
+        }
+
+        nav {
+            margin-top: 15px;
+        }
+
+        .navbar {
+            list-style: none;
+            display: flex;
+            gap: 30px;
+            margin: 0;
+            padding: 0;
+            justify-content: center;
+        }
+
+        .navbar li {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar li a {
+            text-decoration: none;
+            font-size: 1.05rem;
+            font-weight: 500;
+            color: var(--dark);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            border-radius: 50px;
+            background: transparent;
+        }
+
+        .navbar li a:hover {
+            background: rgba(74, 108, 247, 0.1);
+            color: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .navbar li a.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 5px 15px rgba(74, 108, 247, 0.3);
+        }
+
+        /* Styling for the separator */
+        hr {
+            border: 0;
+            border-top: 2px solid var(--primary);
+            width: 80%;
+            margin: 20px auto;
+            border-radius: 2px;
+            opacity: 0.3;
+        }
+
+        main {
+            background: var(--card-bg);
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            margin: 2rem auto;
+            padding: 2.5rem;
+            width: 95%;
+            min-height: 60vh;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        /* Responsive design */
+        @media (max-width: 992px) {
+            .project-title {
+                font-size: 1.5rem;
+            }
+            
+            .navbar {
+                gap: 15px;
+            }
+            
+            .navbar li a {
+                padding: 10px 15px;
+                font-size: 0.95rem;
+            }
+            
+            .team-info {
+                font-size: 1rem;
+            }
+            
+            .team-info span {
+                margin-right: 15px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .logo {
+                margin-right: 0;
+                margin-bottom: 15px;
+            }
+            
+            .project-title {
+                font-size: 1.4rem;
+            }
+            
+            .navbar {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .team-info {
+                white-space: normal;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .team-info span {
+                margin-right: 0;
+            }
+        }
+
+        /* Animation for interactive elements */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        header, main {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .navbar li a {
+            animation: fadeIn 0.5s ease-out;
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Open+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Logo" class="logo">
+        <div class="header-content">
+            <div class="project-title">{{ title | default("Neuro-Fuzzy IDS with MRMR Feature Selection and Adaptive Ensemble Correction") }}</div>
+            <!-- Team info section added in a single line -->
+            <div class="team-info">
+                <span><i class="fas fa-users"></i> Team Members: P.V.Dhanush Kumar, V.Srinivas, Sk.M.Saida Vali, T.venkata Siva</span>
+                <span><i class="fas fa-user-graduate"></i> Guide: Dr. K.Suresh Babu</span>
+                <span><i class="fas fa-user-tie"></i> Mentor: D.Venkata Reddy</span>
+            </div>
+            <!-- Separator added here -->
+            <hr>
+            <nav>
+                <ul class="navbar">
+                    <li><a href="{{ url_for('index') }}" class="{{ 'active' if request.endpoint == 'index' else '' }}"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="{{ url_for('about') }}" class="{{ 'active' if request.endpoint == 'about' else '' }}"><i class="fas fa-info-circle"></i> About Project</a></li>
+                    <li><a href="{{ url_for('predict') }}" class="{{ 'active' if request.endpoint == 'predict' else '' }}"><i class="fas fa-calculator"></i> Prediction</a></li>
+                    <li><a href="{{ url_for('metrics') }}" class="{{ 'active' if request.endpoint == 'metrics' else '' }}"><i class="fas fa-chart-line"></i> Metrics</a></li>
+                    <li><a href="{{ url_for('flowchart') }}" class="{{ 'active' if request.endpoint == 'flowchart' else '' }}"><i class="fas fa-sitemap"></i> Flowchart</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>
